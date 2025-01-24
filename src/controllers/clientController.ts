@@ -5,7 +5,7 @@ export const getClients = async (req : Request , res: Response) => {
 
     try {
         const clients = await clientServices.getClients();
-        res.status(200).send(clients);
+        res.status(200).json(clients);
         console.log(clients)
     } catch (error) {
         console.log("Error Fetching Data : " , error);
