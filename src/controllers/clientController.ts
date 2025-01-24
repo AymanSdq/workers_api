@@ -56,3 +56,30 @@ export const updateClient = async ( req : Request , res: Response) => {
         res.status(500).json({Error : error})
     }
 }
+
+
+export const deleteClient = async(req : Request, res : Response) => {
+
+    try {
+        const getIdClient = parseInt( req.params.id , 10);
+
+        if(isNaN(getIdClient)){
+            res.status(404).send("UserId Not found!");
+            return;
+        }
+
+        const deleteClient = await clientServices.deleteClient(getIdClient);
+
+        if (!deleteClient) {
+            res.status(200).json({
+                message: "Client Deleted successfully",
+
+            });
+        } else {
+            res.status(404).json({ message: "Client not found" });
+        }
+
+    } catch (error) {
+        
+    }
+}

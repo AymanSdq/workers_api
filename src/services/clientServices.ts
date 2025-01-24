@@ -37,3 +37,12 @@ export const updateClient = async(clientData : clientData, clientId : number) =>
 
     return updateCl.rows[0];
 }
+
+export const deleteClient = async(clientId : number) => {
+    
+    const deleteCl = await query(`
+        DELETE FROM clients_tb WHERE id = $1
+        `, [clientId]);
+
+    return deleteCl.rows[0];
+}
