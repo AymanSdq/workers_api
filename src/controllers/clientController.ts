@@ -73,13 +73,29 @@ export const deleteClient = async(req : Request, res : Response) => {
         if (!deleteClient) {
             res.status(200).json({
                 message: "Client Deleted successfully",
-
             });
         } else {
             res.status(404).json({ message: "Client not found" });
         }
 
     } catch (error) {
-        
+        res.status(500).json({Error : error})
+    }
+}
+
+export const searchClient = async( req : Request, res : Response ) => {
+
+    try {
+        const searchTerm = req.query.searchItem as string;
+
+        if (!searchTerm) {
+            res.status(400).json({ message: 'Query parameter searchItem is required' });
+            return;
+        }
+
+        const clients = await clientServices.searchClient(searchTerm);
+        res.status(202).json(clients)
+    } catch (error) {
+        res.status(500).json({Error : error})
     }
 }

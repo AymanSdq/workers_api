@@ -46,3 +46,12 @@ export const deleteClient = async(clientId : number) => {
 
     return deleteCl.rows[0];
 }
+
+export const searchClient = async(searchTerm: string) => {
+
+    const searchingClient = await query(`
+        SELECT * FROM clients_tb WHERE name ILIKE $1 OR email ILIKE $1 OR job ILIKE $1`,
+    [`%${searchTerm}%`]);
+    return searchingClient.rows;
+
+}   
